@@ -15,7 +15,9 @@ Deno.serve(async (req) => {
     ? await serveFile(req, filePath)
     : await serveFile(req, basePath + "/index.html");
 
-  Object.assign(response.headers, corsHeaders);
+  for (const [key, value] of Object.entries(corsHeaders)) {
+    response.headers.set(key, value);
+  }
 
   return response;
 });
